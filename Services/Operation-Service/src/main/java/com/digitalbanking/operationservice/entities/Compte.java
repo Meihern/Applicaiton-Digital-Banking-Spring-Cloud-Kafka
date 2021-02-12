@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comptes")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor @ToString(exclude = "operations")
 public class Compte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
