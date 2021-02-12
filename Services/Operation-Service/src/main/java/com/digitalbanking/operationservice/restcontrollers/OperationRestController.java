@@ -11,6 +11,9 @@ import com.digitalbanking.operationservice.repositories.OperationRepository;
 import com.digitalbanking.operationservice.services.OperationService;
 import com.mifmif.common.regex.Generex;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +61,9 @@ public class OperationRestController {
     }
 
     @GetMapping("/consulterOperations/{code}")
-    public PagedModel<Operation> consulterOperations(@PathVariable String code, @RequestParam(value = "page") int page,@RequestParam(value = "size") int size){
-        return operationService.consulterOperations(compteRepository.findCompteByCode(code), page, size);
+    public Page<Operation> consulterOperations(@PathVariable String code, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return operationService.consulterOperations(compteRepository.findCompteByCode(code), pageable);
     }
 
     @GetMapping("/fullCompte/{code}")

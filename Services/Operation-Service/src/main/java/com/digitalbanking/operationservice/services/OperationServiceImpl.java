@@ -5,6 +5,8 @@ import com.digitalbanking.operationservice.entities.Operation;
 import com.digitalbanking.operationservice.feignclients.ClientFeignClient;
 import com.digitalbanking.operationservice.repositories.CompteRepository;
 import com.digitalbanking.operationservice.repositories.OperationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +58,8 @@ public class OperationServiceImpl implements OperationService{
     }
 
     @Override
-    public PagedModel<Operation> consulterOperations(Compte compte, int page, int size) {
-        return operationRepository.findOperationsByCompte(compte);
+    public Page<Operation> consulterOperations(Compte compte, Pageable page) {
+        return operationRepository.findOperationsByCompte(compte, page);
     }
 
     @Override
